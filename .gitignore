@@ -1,0 +1,13 @@
+# Secrets — never commit. Only deploy keys live in .env files;
+# they are loaded at runtime and never read by forge/build tools unless approved.
+**/.env
+**/.env.*
+!**/.env.example
+
+# Node
+node_modules/
+
+# Forge
+broadcast/
+cache/
+out/

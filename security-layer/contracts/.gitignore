@@ -1,0 +1,6 @@
+# Secrets — never commit
+.env
+
+# Forge deploy artifacts (contain addresses + build metadata)
+/broadcast
+/cache

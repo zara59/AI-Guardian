@@ -1,0 +1,22 @@
+{
+  "chainId": 11155111,
+  "network": "sepolia",
+  "deployer": "0xacc71298950a70ca859c0d4f72352a8e47c5bf66",
+  "deployedAtBlock": 11675633,
+  "version": "4.0.0",
+  "contracts": [
+    {
+      "name": "GuardianTestToken",
+      "address": "0x27998584dd35d80c3fcb3c6b2356732b3d88019a",
+      "decimals": 6
+    },
+    {
+      "name": "GuardianSimpleStakingStrategy",
+      "address": "0x7b210b37c2c1a51c7cc89b412abd1a09136a8417"
+    },
+    {
+      "name": "GuardianVault",
+      "address": "0xecd13f5c3b3575481db14d2b4587f4c7c87cbafd"
+    }
+  ]
+}

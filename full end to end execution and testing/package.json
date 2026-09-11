@@ -1,0 +1,17 @@
+{
+  "name": "ai-guardian-phase6",
+  "private": true,
+  "version": "6.0.0",
+  "type": "module",
+  "description": "AI Guardian Phase 6 — full end-to-end execution, hardening and final demonstration.",
+  "scripts": {
+    "readiness": "node scripts/check-readiness.mjs",
+    "funding": "node scripts/check-funding.mjs",
+    "audit": "node scripts/audit-project.mjs",
+    "deploy": "node scripts/deploy-sepolia.mjs",
+    "migrate": "node database/migrate.js",
+    "demo": "node scripts/demo-e2e.mjs",
+    "test": "node --test",
+    "lint": "npx oxlint backend/ frontend/ scripts/ tests/"
+  }
+}

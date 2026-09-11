@@ -1,0 +1,78 @@
+{
+  "comment": "Registry of real opportunities Guardian discovers and analyzes. Pool ids reference real DefiLlama yields pools; contract addresses are real mainnet addresses; standing/minimumRecommendedUsd/risks are Guardian's documented editorial rubric (product guidance), never fabricated market data.",
+  "opportunities": [
+    {
+      "slug": "ethereum-staking",
+      "name": "Ethereum Staking (Lido)",
+      "protocol": "Lido",
+      "category": "staking",
+      "network": "ethereum",
+      "chainId": 1,
+      "asset": "ETH (stETH)",
+      "assetAddress": "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84",
+      "contractAddress": "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84",
+      "defiLlamaProject": "lido",
+      "defiLlamaPoolId": "747c1d2a-c668-4682-b9f9-296708a3dd90",
+      "defiLlamaPoolSymbol": "STETH",
+      "coingeckoIds": ["ethereum"],
+      "standing": "major-established",
+      "minimumRecommendedUsd": 100,
+      "expectedInteraction": "Stake ETH (receive stETH)",
+      "exitConditions": "Unstaking runs through Lido's withdrawal queue; same protocol, lower priority.",
+      "risks": [
+        { "title": "Smart-contract risk", "description": "Staking contracts could contain vulnerabilities, although Lido is a battle-tested canonical protocol." },
+        { "title": "Market risk", "description": "ETH price fluctuates independently of staking rewards." },
+        { "title": "Withdrawal conditions", "description": "Unstaking can face a withdrawal queue during high demand." },
+        { "title": "Reward changes", "description": "Staking APR varies with total network participation." }
+      ]
+    },
+    {
+      "slug": "stablecoin-lending",
+      "name": "Stablecoin Lending (Aave V3 USDC)",
+      "protocol": "Aave V3",
+      "category": "lending",
+      "network": "ethereum",
+      "chainId": 1,
+      "asset": "USDC",
+      "assetAddress": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "contractAddress": "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2",
+      "defiLlamaProject": "aave",
+      "defiLlamaPoolId": "aa70268e-4b52-42bf-a116-608b370f9501",
+      "defiLlamaPoolSymbol": "USDC",
+      "coingeckoIds": ["usd-coin"],
+      "standing": "major-established",
+      "minimumRecommendedUsd": 100,
+      "expectedInteraction": "Supply USDC into Aave V3",
+      "exitConditions": "Withdraw anytime at current pool utilization, subject to available liquidity.",
+      "risks": [
+        { "title": "Smart-contract risk", "description": "Lending protocols carry smart-contract risk; Aave is a major audited protocol." },
+        { "title": "De-peg risk", "description": "USDC could lose its peg in extreme market conditions." },
+        { "title": "Utilization risk", "description": "High utilization can temporarily limit withdrawals." }
+      ]
+    },
+    {
+      "slug": "liquidity-provision",
+      "name": "Liquidity Provision (Uniswap V3 ETH/USDC)",
+      "protocol": "Uniswap V3",
+      "category": "defi",
+      "network": "ethereum",
+      "chainId": 1,
+      "asset": "USDC/WETH",
+      "assetAddress": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+      "contractAddress": "0x8ad599c3A0ff1De082011EFDDc58f1908eb6e6D8",
+      "defiLlamaProject": "uniswap-v3",
+      "defiLlamaPoolId": "665dc8bc-c79d-4800-97f7-304bf368e547",
+      "defiLlamaPoolSymbol": "USDC-WETH",
+      "coingeckoIds": ["ethereum", "usd-coin"],
+      "standing": "major-established",
+      "minimumRecommendedUsd": 200,
+      "expectedInteraction": "Provide a USDC/WETH position (0.3% fee tier)",
+      "exitConditions": "Remove liquidity anytime once the position range is within the current price; fees accrue while within range.",
+      "risks": [
+        { "title": "Impermanent loss", "description": "Price divergence between the paired assets can reduce position value." },
+        { "title": "Smart-contract risk", "description": "DEX contracts, while audited, can still contain vulnerabilities." },
+        { "title": "Market volatility", "description": "Sharp price moves can amplify impermanent loss." }
+      ]
+    }
+  ]
+}

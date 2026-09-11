@@ -1,0 +1,24 @@
+{
+  "comment": "Supported networks for opportunity discovery. RPC URLs are default public endpoints; each can be overridden with the matching environment variable (e.g. ETHEREUM_RPC_URL). Never commit private RPC credentials.",
+  "networks": [
+    {
+      "id": "ethereum",
+      "name": "Ethereum",
+      "chainId": 1,
+      "nativeToken": { "symbol": "ETH", "decimals": 18 },
+      "rpcUrl": "https://ethereum-rpc.publicnode.com",
+      "explorerUrl": "https://etherscan.io",
+      "envOverrideRpcUrl": "ETHEREUM_RPC_URL"
+    },
+    {
+      "id": "sepolia",
+      "name": "Sepolia",
+      "chainId": 11155111,
+      "expectedHexChainId": "0xaa36a7",
+      "nativeToken": { "symbol": "ETH", "decimals": 18 },
+      "rpcUrl": "https://ethereum-sepolia-rpc.publicnode.com",
+      "explorerUrl": "https://sepolia.etherscan.io",
+      "envOverrideRpcUrl": "SEPOLIA_RPC_URL"
+    }
+  ]
+}
