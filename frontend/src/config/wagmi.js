@@ -1,4 +1,24 @@
-// Phase 4 code lives in the security layer.
-// This path is kept as a re-export seam so Phase 1-3 imports keep working.
-export * from '../../../security-layer/frontend/config/wagmi.js';
-export { default } from '../../../security-layer/frontend/config/wagmi.js';
+// wagmi configuration for the Guardian demo.
+// Connecting on Sepolia, where the Guardian contracts get deployed.
+
+import { createConfig, http } from 'wagmi';
+import { sepolia } from 'wagmi/chains';
+import { injected } from 'wagmi/connectors';
+
+const rpcUrl =
+  import.meta.env.VITE_SEPOLIA_RPC_URL ||
+  'https://ethereum-sepolia-rpc.publicnode.com';
+
+/** Chain both the wallet and the frontend operate on. */
+export const guardianChain = sepolia;
+
+export const wagmiConfig = createConfig({
+  chains: [sepolia],
+  transports: {
+    [sepolia.id]: http(rpcUrl),
+  },
+  connectors: [injected()],
+  ssr: false,
+});
+
+export default wagmiConfig;

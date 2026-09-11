@@ -5,9 +5,9 @@ const walletMock = vi.hoisted(() => vi.fn());
 const actionsMock = vi.hoisted(() => vi.fn());
 const transactionMock = vi.hoisted(() => vi.fn());
 
-vi.mock('../../../security-layer/frontend/hooks/useWallet.js', () => ({ useWallet: walletMock }));
-vi.mock('../../../security-layer/frontend/hooks/useWalletActions.js', () => ({ useWalletActions: actionsMock }));
-vi.mock('../../../security-layer/frontend/hooks/useTransaction.js', () => ({
+vi.mock('../hooks/useWallet.js', () => ({ useWallet: walletMock }));
+vi.mock('../hooks/useWalletActions.js', () => ({ useWalletActions: actionsMock }));
+vi.mock('../hooks/useTransaction.js', () => ({
   useTransaction: transactionMock,
   PHASES: {
     idle: 'idle',

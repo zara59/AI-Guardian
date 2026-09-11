@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 
 const walletMock = vi.hoisted(() => vi.fn());
 
-vi.mock('../../../security-layer/frontend/hooks/useWallet.js', () => ({ useWallet: walletMock }));
+vi.mock('../hooks/useWallet.js', () => ({ useWallet: walletMock }));
 
 import WalletConnect from './WalletConnect';
 

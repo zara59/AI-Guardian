@@ -1,4 +1,29 @@
-// Phase 4 code lives in the security layer.
-// This path is kept as a re-export seam so Phase 1-3 imports keep working.
-export * from '../../../security-layer/frontend/contracts/erc20.js';
-export { default } from '../../../security-layer/frontend/contracts/erc20.js';
+// Minimal ERC-20 surface the wallet needs: approve for the vault + the
+// allowance read that decides whether an approval step is required.
+
+export const erc20Abi = [
+  {
+    type: 'function',
+    name: 'approve',
+    stateMutability: 'nonpayable',
+    inputs: [
+      { name: 'spender', type: 'address' },
+      { name: 'amount', type: 'uint256' },
+    ],
+    outputs: [{ name: '', type: 'bool' }],
+  },
+  {
+    type: 'function',
+    name: 'allowance',
+    stateMutability: 'view',
+    inputs: [
+      { name: 'owner', type: 'address' },
+      { name: 'spender', type: 'address' },
+    ],
+    outputs: [{ name: '', type: 'uint256' }],
+  },
+];
+
+export const MAX_APPROVAL = 2n ** 256n - 1n;
+
+export default erc20Abi;
