@@ -39,6 +39,16 @@ async function sendFile(res, filePath) {
   return true;
 }
 
+async function distInfo() {
+  try {
+    const html = await readFile(path.join(dist, 'index.html'), 'utf-8');
+    const m = html.match(/<title>([^<]*)<\/title>/);
+    return m ? m[1] : 'built app';
+  } catch {
+    return null;
+  }
+}
+
 const server = createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   let filePath = path.normalize(path.join(dist, url.pathname));
@@ -51,6 +61,16 @@ const server = createServer(async (req, res) => {
 
   const served = await sendFile(res, filePath);
   if (!served) {
+    const title = await distInfo();
+    if (!title) {
+      res.writeHead(500, { 'content-type': 'text/plain' });
+      res.end(
+        'dist/index.html not found.\n' +
+          'Your Render Build Command must run the production build, e.g.:\n' +
+          'npm install && npm run build',
+      );
+      return;
+    }
     // SPA fallback: unknown routes get the app shell.
     const servedIndex = await sendFile(res, path.join(dist, 'index.html'));
     if (!servedIndex) {
