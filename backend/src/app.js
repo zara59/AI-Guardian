@@ -31,6 +31,15 @@ export function createApp() {
     });
   }
 
+  app.get('/', (req, res) => {
+    res.json({
+      service: 'ai-guardian-backend',
+      version: '2.0.0',
+      status: 'ok',
+      docs: { health: '/api/health', opportunities: '/api/opportunities' },
+    });
+  });
+
   app.use('/api/health', healthRoutes);
   app.use('/api/opportunities', opportunityRoutes);
   app.use('/api/rankings', rankingRoutes);
