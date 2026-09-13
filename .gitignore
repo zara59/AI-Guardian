@@ -7,7 +7,7 @@
 # Node
 node_modules/
 
-# Forge
-broadcast/
-cache/
-out/
+# Forge (anchored to the contracts folder only)
+security-layer/contracts/broadcast/
+security-layer/contracts/cache/
+security-layer/contracts/out/
