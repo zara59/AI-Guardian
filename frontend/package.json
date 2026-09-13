@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "start": "serve -s dist -l $PORT",
+    "start": "node server.mjs",
     "lint": "oxlint",
     "preview": "vite preview",
     "test": "vitest run"
@@ -29,7 +29,6 @@
     "@vitejs/plugin-react": "^6.1.0",
     "jsdom": "^25.0.0",
     "oxlint": "^1.79.0",
-    "serve": "^14.2.4",
     "tailwindcss": "^4.3.3",
     "vite": "^8.2.2",
     "vitest": "^3.2.0"
