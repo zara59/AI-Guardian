@@ -5,15 +5,22 @@ import { logger } from '../utils/logger.js';
 let client = null;
 let connected = false;
 let connecting = null;
+let warned = false;
+
+function available() {
+  return Boolean(config.redisUrl);
+}
 
 function create() {
-  const c = createClient({ url: config.redisUrl });
+  const c = createClient({
+    url: config.redisUrl,
+    socket: {
+      reconnectStrategy: (retries) => Math.min(retries * 500, 30000),
+    },
+  });
 
-  c.on('error', (err) => {
+  c.on('error', () => {
     connected = false;
-    logger.warn('Redis client error (cache disabled until reconnect)', {
-      message: err.message,
-    });
   });
   c.on('connect', () => {
     connected = true;
@@ -25,6 +32,13 @@ function create() {
 }
 
 export async function getClient() {
+  if (!available()) {
+    if (!warned) {
+      warned = true;
+      logger.warn('Redis not configured (REDIS_URL unset), running without cache');
+    }
+    return null;
+  }
   if (client && connected) return client;
   if (connecting) return null;
 
@@ -50,6 +64,7 @@ export async function getClient() {
 }
 
 export async function isCacheAvailable() {
+  if (!available()) return false;
   try {
     await getClient();
     return connected;

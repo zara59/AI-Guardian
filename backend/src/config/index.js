@@ -7,7 +7,7 @@ export const config = Object.freeze({
   isProduction: (env.NODE_ENV || 'development') === 'production',
   port: parseInt(env.PORT || '3000', 10),
   databaseUrl: env.DATABASE_URL || 'postgres://localhost:5432/ai_guardian',
-  redisUrl: env.REDIS_URL || 'redis://127.0.0.1:6379',
+  redisUrl: env.REDIS_URL || null,
   corsOrigin: (env.CORS_ORIGIN || 'http://localhost:5173')
     .split(',')
     .map((s) => s.trim())
