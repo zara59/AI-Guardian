@@ -16,6 +16,11 @@ export default defineConfig({
       allow: ['..', path.resolve(__dirname, '..')],
     },
   },
+  preview: {
+    // Web-service deploys (Render) visit the site via a hostname that is not
+    // known at build time, so allow any host.
+    allowedHosts: true,
+  },
   test: {
     environment: 'jsdom',
     globals: true,
