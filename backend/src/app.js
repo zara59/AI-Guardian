@@ -18,7 +18,24 @@ export function createApp() {
   const app = express();
 
   app.disable('x-powered-by');
-  app.use(cors({ origin: config.corsOrigin }));
+  app.use(
+    cors({
+      origin(origin, callback) {
+        if (!origin) return callback(null, true);
+        if (config.corsOrigin.includes(origin)) return callback(null, true);
+        if (config.isProduction) {
+          try {
+            if (/\.onrender\.com$/.test(new URL(origin).hostname)) {
+              return callback(null, true);
+            }
+          } catch {
+            /* invalid origin */
+          }
+        }
+        return callback(new Error('Origin not allowed by CORS'));
+      },
+    }),
+  );
   app.use(express.json({ limit: '256kb' }));
   app.use(globalLimiter);
 

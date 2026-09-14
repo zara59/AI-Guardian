@@ -20,7 +20,10 @@ services:
           name: ai-guardian-db
           property: connectionString
       - key: CORS_ORIGIN
-        value: https://ai-guardian-frontend.onrender.com
+        fromService:
+          name: ai-guardian-frontend
+          type: web
+          property: url
 
   - type: web
     name: ai-guardian-frontend

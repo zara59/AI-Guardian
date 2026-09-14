@@ -2,7 +2,9 @@
 // All calls hit the same backend the rest of the app uses. No secrets live
 // here — the API key never leaves the server.
 
-const BASE = '/api/phase6';
+const BASE = (
+  import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000'
+).replace(/\/+$/, '') + '/api/phase6';
 
 async function get(path, params = {}) {
   const qs = new URLSearchParams(

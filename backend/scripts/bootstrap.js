@@ -23,12 +23,28 @@ async function tableExists(name) {
   return res.rowCount > 0;
 }
 
+// Phase 5 + Phase 6 additive migrations. Idempotent (CREATE TABLE IF NOT
+// EXISTS / ADD COLUMN IF NOT EXISTS), safe on every boot.
+async function applyPhaseMigrations() {
+  const files = [
+    'keeper hub integration/database/001_workflow_executions.sql',
+    'full end to end execution and testing/database/002_phase6.sql',
+  ];
+  for (const rel of files) {
+    const sql = await readFile(path.join(__dirname, '..', '..', rel), 'utf8');
+    await query(sql);
+  }
+  console.log('Bootstrap: Phase 5 + Phase 6 migrations applied.');
+}
+
 /**
  * Idempotent DB initialization for first boot (e.g. Render blueprint).
- * Runs only when the schema is missing, so restarting never wipes data.
+ * Runs the base schema only when it's missing, so restarting never wipes data.
+ * Phase 5/6 migrations always run (they're additive + idempotent).
  */
 export async function bootstrapDatabase() {
   if (await tableExists('opportunities')) {
+    await applyPhaseMigrations();
     return { status: 'already-initialized' };
   }
 
@@ -60,5 +76,7 @@ export async function bootstrapDatabase() {
   console.log(
     `Bootstrap: seeded user #${user.id} with ${SEED_OPPORTUNITIES.length} opportunities.`,
   );
+
+  await applyPhaseMigrations();
   return { status: 'initialized', opportunities: SEED_OPPORTUNITIES.length };
 }
