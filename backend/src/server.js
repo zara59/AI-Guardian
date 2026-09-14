@@ -3,6 +3,7 @@ import { createApp } from './app.js';
 import { config } from './config/index.js';
 import { checkDatabaseConnection, closeDatabase } from './config/db.js';
 import { getClient, closeCache } from './cache/redisClient.js';
+import { bootstrapDatabase } from '../scripts/bootstrap.js';
 import { refreshOpportunities } from './services/refreshService.js';
 import { logger } from './utils/logger.js';
 
@@ -13,6 +14,7 @@ export async function start() {
     try {
       await checkDatabaseConnection();
       logger.info('PostgreSQL connection verified');
+      await bootstrapDatabase();
     } catch (err) {
       logger.warn('PostgreSQL not reachable at startup: ' + err.message);
     }

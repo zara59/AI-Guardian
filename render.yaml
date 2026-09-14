@@ -1,0 +1,38 @@
+databases:
+  - name: ai-guardian-db
+    databaseName: ai_guardian
+    plan: free
+
+services:
+  - type: web
+    name: ai-guardian-backend
+    runtime: node
+    plan: free
+    rootDir: .
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ai-guardian-db
+          property: connectionString
+      - key: CORS_ORIGIN
+        value: https://ai-guardian-frontend.onrender.com
+
+  - type: web
+    name: ai-guardian-frontend
+    runtime: node
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          name: ai-guardian-backend
+          type: web
+          property: url
